@@ -1,0 +1,92 @@
+This is the revision history fo TNT's MOD Player...
+
+þþBugs fixed since version 1.1 (second public release):
+
+    (general: )
+      - The Player now supports 8 octaves instead of 5
+      - Made general appearance nicer
+      - Volume amplify can be modified during replay now using + and - :
+        the value will turn red when clipping goes over 2.5% of the time
+        (1 out of 40 samples has it's wave "cut off")
+      - When playing in stereo, change global panning using / and * keys
+        (0 = extreme stereo, 255 = extreme reversed stereo, 128 = mono)
+      - Added Cubic interpolation for SB replay
+      - Added SB Support for the DPMI version
+      - changed key 'i' to Backspace (filters can now be cycled just like
+        in Cubic Player):
+         None / SB PRO LowPass / Linear interpolation / Cubic interpolation
+      - removed "-d" command-line option in the DPMI version. You can now
+        shell to DOS at anytime by pressing "d", in the DPMI version of
+        course.
+      - Replaced usage of Borland Crt Unit with an own replacement in order
+        to avoid the runtime error 200 problem on > 200MHz machines
+
+    (replay.pas: )
+      - Fixed bug in patterndelay effect when a set tempo (set speed) effect
+        occured in the same line in a higher channel.
+      - Increased nr of octaves from 5 to 8, many thanks must go to
+        Mr.H / Triton who was kind enough to supply me with formulas and
+        quite some additional information.
+        Note that because of FastTracker 2.08 saving routines, only 7 octaves
+        are available in MOD files (the lowest octave can't be saved)
+        This is actually a limitation of the .MOD format. Not FT2's fault ;)
+      - Fixed major bug in pattern loop effect that did not work anymore
+        because of another "bugfix" in version 1.1.
+      - changed pattern-depack code to make it compatible with the new
+        packing scheme introduced because of the extra octaves, it is now
+        quite less memory efficient, but hey, use the dpmi version eh?
+      - Fixed the Vibrato effect, finally (the waveform was retriggered each
+        line instead of each new note), but it still doesn't sound 100% right
+      - Removed some redundant safety checks that were already done in the
+        loader (hopefully ;))
+
+    (dma_mix.asm - the mixing routine)
+      - Added Cubic Interpolative mixers (mono and stereo). I tried to use
+        the FPU but that was too slow, so i use fixed point. The code  for
+        the FPU version is still there but not used and obsolete so use at
+        your own risk ;)
+      - made the source code smaller, easier to read
+
+    (bp_mixer.pas - the pascal mixing routine)
+      - Added stereo and interpolative mixing routines
+      - Added cubic interpolative routines, these use the FPU however!
+      - removed one nasty bug that occured with very low BPM or very large
+        buffers, phew!
+
+    (newcrt.pas: )
+      - added this file and used it instead of Borlands' crt unit which
+        makes .EXE files that crash on any PC that's faster than about 200MHz
+
+
+þþBugs fixed since version 1.0á (first public release):
+
+    (general: )
+      - You can now shell to DOS if you use the Protected Mode version
+        of the player (GUS only).
+      - You can now compile each file for protected Mode. You'll then get
+        a slow-loading player that only supports GUS. It doesn't really
+        make sense to use the protected Mode version yet, as you should
+        NEVER run out of memory when using GUS. The only advantage is that
+        you can shell to DOS...
+
+    (replay.pas - the replay routines: )
+      - Fixed song repeat a bit
+      - Fixed nested pattern loops
+      - FX $E6 (pattern loop) and FX $D (pattern break) combination fixed.
+        Loop has now precedence over pattern break when on the same row.
+        !! Note that FT2 always breaks a pattern when effect $D occurs, no
+        matter if a loop has been specified or not. Impulse tracker to the
+        contrary works the same as MP.
+
+    (gus_drv1.pas - the gus driver: )
+      - IRQ 0 (int 8) is now chained, so the time get's updated.
+        Because of this fix, the GUS replay routines don't work under W95
+        anymore (dunno for Windows 3.1). Anyone knows why?
+      - Fixed bug in GUS-click removal: chiptunes sound right now
+        (it was a problem related to small sample loop-lengths)
+
+    (sb_drv1.pas - the sb driver: )
+      - Reduced clicks when using interpolation.
+
+    (dma_mix.asm - the mixing routine)
+      - Fixed the interpolative 8bit stereo mixer (it did not work before)

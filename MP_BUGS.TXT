@@ -1,0 +1,23 @@
+BUGS in MP:
+-----------
+
+** EFFECTS:
+    - Vibrato FX is buggy...
+    - Tone Portamento is buggy when glissando is on (?) (control removed yet)
+    - Tremolo FX is not implemented
+    - If effect $D occured (pattern break) with an argument <> 0 in the last
+      pattern of the song, the repetition of the MOD might not be as
+      expected (MP USES the argument yet! Maybe it shouldn't).
+    - nested pattern loops are not supported but ignored as garbage...
+
+
+** MISC:
+    - Clicks in playback
+    - MP is able to detect compressed MOD's (these have a header that reads
+      "PP20"), but is unable to load them. This bug will not be fixed in
+      future versions (this *IS* possible, but quite overkill for such a
+      little proggy. Special code is needed, due to memory conflict in
+      PASCAL real mode programming).
+
+Feel free to email me if you noticed any other bugs at erlandvo@hotmail.com
+

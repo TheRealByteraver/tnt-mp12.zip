@@ -1,0 +1,373 @@
+                њ
+         ј               љ          њ Х
+             ммлллллллмм    пллллл њ    плллллллп    ммлллллллмм     *
+           млллллллллллллм   оллллл      олллллн   млллллллллллллм
+          олллллллллллллллн   лллллл њ.   ллллл   олллллллллллллллн
+          ллллллллллллллллл   ллллллл     ллллл   ллллллллллллллллл
+          ллп  плллллп  плл   лллллллл    ллллл   ллп  плллллп  плл
+          лн    олллн    ол   олллллллл   олллн   лн јњ олллн    ол
+          л      ллл      л .  ллл ллллл   ллл    л      ллл      л
+          н      ллл  Х   о    ллл  ллллл  ллл    н      ллл      о
+          н      ллл      о    ллл   ллллл ллл љ  н      ллл  њ   о   .
+             љ   ллл           ллл    лллл ллл     њ     ллл   њ
+            њ    ллл           ллл     ллл ллл     Г     ллл
+             љ   ллл     Гњ    ллл      лл ллл   њФўФњ   ллл
+              њ  ллл    ФФ    ллл       л ллл     Г     ллл   љ
+                олллн    Г    олллн  ј    олллн    њ    олллн
+                ллллл         ллллл       ллллл         ллллл
+           Х    ллллл   љ     ллллл   љ   ллллл      њ  ллллл   Х
+         Х     олллллн       олллллн     олллллн ј     олллллн
+              млллллллм     млллллллм   млллллллм  .  млллллллм
+
+
+          T  H  E      N  E  X  T      T  E  M  P  T  A  T  I  O  N
+
+
+
+
+      Hello!
+
+   Here's ByteRaver from TNT typing some info about MPxx.EXE.
+
+
+
+
+ ў System requirements:
+
+   - Soundcard  : SoundBlaster,  SoundBlaster  PRO,  GRAVIS  UltraSound
+                  (GUS) or any other compatible card.
+   - Processor  : - When using a SoundBlaster: 386 or better
+                                      (486dx2 strongly recommended ;-))
+                  - When using a GUS         : 286 or better (I think!)
+   - Coprocessor: You don't need a coprocessor to run the program.
+   - Memory     : Only base memory  is  used; EMS or XMS isn't used, so
+                  try to free a maximum of base memory.
+                  Notice: when using a SoundBlaster, you'll loose  some
+                  performance if you use an EMS memory manager (EMM386,
+                  QEMM, 386^MAX, etc), but  not that much, so feel free
+                  to install one to get more base mem.
+
+
+
+
+ ў What is it for?
+
+   MP plays MOD files  on several SoundDevices.  Here you have a little
+   bit  info  concerning  MOD  files, the  principles  of  tracking and
+   "mixing" , for those who want to learn a bit more about it...
+
+   - A MOD file is  a  sequenced  music file; it  contains  sample data
+   (digitized  sound) and  pattern  data (the partiture,  if you want).
+   It came originally  from the Commodore AMIGA computer. These "MOD's"
+   have a max. of 4 Channels (some of the later AMIGA software supports
+   8  channel modules  though), i.e. there  can't be played more than 4
+   different  samples (or notes) at once. PC Modules however support up
+   to 32 Channels, due to the  different architecture and superior pro-
+   cessing power of the PC. MP recognizes the following formats:
+
+   - 15 Instrument NoiseTracker Module (old AMIGA format)  , 4 Channels
+   - 31 Instrument ProTracker   Module ("new" AMIGA format), 4 Channels
+   - 31 Instrument PC-Tracker   Module , 1/2/3/4/..26/28/30/32 Channels
+
+   Module players use a technique  called frequency  shifting to obtain
+   different notes  from the same sample ( = piece of digitized sound).
+   The channels are "mixed" together at a very high frequency, and then
+   pushed through the soundcard.  The higher the  mixing frequency, the
+   better the music will sound. A too low mixing  frequency results  in
+   very noisy & metallic playback. But the playback quality is also de-
+   pendends of the quality of the samples (the instruments, if you pre-
+   fer). Writing (programming) mixing routines is very difficult, since
+   they have to run  very fast:  at a mixing frequency (commonly called
+   "mixrate" or "mixing rate") of 44kHz, 44000  calculations have to be
+   made  every second! That's the  main reason why mixing  routines are
+   ALWAYS written in  pure assembler, and in general take advantage  of
+   the 32-bit registers of the 386+ processors. And there comes the BIG
+   advantage of the  GRAVIS Ultrasound  card into the  playfield:  this
+   high-quality soundcard has an  onboard processor, which does all the
+   mixing for you.  There is no need for mixing  routines anymore! Ano-
+   ther advantage of the device is it's automatic 16-bit Interpolation.
+   This is a special technique which (realtime) enhances the quality of
+   the digitized  sound. This technique  can also be performed by soft-
+   ware, but it requires huge processing power. If you haven't a 486dx,
+   don't bother: there's no time left for interpolation  (BTW, interpo-
+   lation  is sometimes called oversampling (which in fact is something
+   different)).  Using  a  *GOOD*  "mixer" (that is, not mine!), a fast
+   486dx  should  be able to mix 32  channels  at a  mixrate  of 44kHz.
+   Please notice  that only  state of the  art programmers  are able of
+   develloping  such  hitech  programs.  Just  take  my routines  as an
+   example:  On  my machine (486dx/50Mhz),  when  playing  32  channels
+   (stereo, with  panning  effects), the maximum mixrate  is 22kHz! (or
+   32kHz when playing in mono). Of course, my routines suck. But still,
+   it's 386+ ASM code! Well, they're not (fully) optimized yet, there's
+   still much to do... So stay on-line! ;-)
+
+
+
+
+ ў Which Soundcards does it support?
+
+   Only SoundBlaster (PRO)  compatible cards and GRAVIS UltraSound com-
+   patible soundcards are supported at this time.
+
+
+
+
+ ў How do I use It?
+
+   - If You have a SoundBlaster or compatible card:
+     just type
+                        MPxx <MODFILE> + <Enter>
+
+     The program  should detect  your Soundcard automatically and start
+     playing once the MOD has been loaded correctly.
+
+   - If You have a SoundBlaster PRO card, and you still want the player
+     to play in mono (not stereo),
+     just type
+                        MPxx -Myy <MODFILE> + <Enter>
+
+     Where yy is a number above 23 and below 45. This will set the mix-
+     rate above 22kHz. Since the SB PRO can't replay at more than 22kHz
+     in stereo mode, it will replay in mono mode. If you can't use this
+     method (setting the  mixrate "high")  because your PC is too slow,
+     you'll have to use the "-o" switch, and  choose "mono, low filter"
+     or "mono, high filter" in the SB Output Mode Menu.
+     The  program  should  start playing  once the MOD  has been loaded
+     correctly.
+
+   - If You have a GRAVIS UltraSound or compatible card:
+     - In Native Mode (no emulation software active): just type
+
+                        MPxx <MODFILE> + <Enter>
+
+       The program  should  detect  your  Soundcard  automatically  and
+       start playing once the MOD has been loaded correctly.
+
+   - If you have a GUS, but wants the  program to play as if you had  a
+     SoundBlaster:
+
+       - First ensure  yourself  that the  emulation software is reset:
+         (type E to activate the GUS  emulation-manager; if you have an
+         EMS manager (such as  QEMM, EMM386, 386MAX, etc) loaded, choo-
+         se the  menu "Roland MT-32/SCC1 and  SoundBlaster  emulation".
+         This will activate MEGAEM & EMUSET. If you don't  have any EMS
+         manager  installed but  only Himem for example, you'll have to
+         use (MAX/IW)SBOS.
+
+     -=> PLEASE note that the music  will  sound  MUCH  MUCH  better in
+         Native Mode. To  deactivate  emulation,  type "e", then choose
+         "Remove all emulations".  Type "e" again to  ensure the emula-
+         tion  has effectively been removed.  If not, reset your compu-
+         ter and try again.  If emulation is activated whilst  startup,
+         You'll have to modify  your startup  files  to avoid emulation
+         becomes active.
+         !!! Note that the GUS can't emulate the SB PRO, you'll have to
+         use mono playback only. (Only the GUS PnP, GUS extreme and the
+         ViperMAX seem to be able to emulate stereo soundblasters).
+
+   -=> The program uses the environment  variables to detect the Sound-
+       Card that  is  installed in  your computer. (For example, if you
+       have a  SoundBlaster, You should have  something  like  this  in
+       your  autoexec.bat  file: "SET BLASTER=A220 I7 D1 T4". "BLASTER"
+       is the  environment  variable. The  example above will give  the
+       following info to the  program: "A soundBlaster PRO is installed
+       at base port 220h, using  IRQ nr 7 and DMA channel nr 1".) If no
+       environment variables  are  found, the  program doesn't give up,
+       but performs a hardware detection.
+
+   - The program first tries to  detect  a GRAVIS UltraSound Compatible
+     card. If it doesn't  find one, it looks  after  a SoundBlaster (or
+     compatible card).
+
+   - you don't have to give the extension (.MOD) of the module:
+
+     "MPxx world",  "MPxx world.", "MPxx world.mod" will  all  cause MP
+     to load the  module "world.mod".
+
+
+
+
+ ў How good is it?
+
+   The only good thing is the MODloader,  which loads  almost every MOD
+   you  can  imagine ;-).  Feel  free  to test  the  program  with your
+   collection  corrupt MOD files  8-].  The player isn't too  bad, too.
+   Only  the Mixing  routine  should be a  bit  improved.  So let's  be
+   honest: At this moment, MP isn't really fantastic... But the program
+   is still in beta status, so be indulgent ;-).
+
+   - Remark: When you see  red  in the track info,  this means your CPU
+   (your computer, or  my program  for that matter) is  too slow to up-
+   date the track info adequately.  Decreasing  mixing  rate will help.
+   You should NEVER  see red when using a GUS (in native Mode). If this
+   happens anyway, contact me, I'd like it to see that!
+   Please note that if you  press the pause key, you might also see red
+   in the track info, but this is of  course not due to a speed-related
+   problem in your computer!
+   **** This feature is yet disabled and may or may not be reenabled in
+   future ****
+
+
+
+
+ ў BUGS I am aware of:
+
+   - Some clicks in playback
+   - On SB, CHIPtunes (MOD's with VERY short samples) sound wrong some-
+     times. Looping samples may not always loop correctly.
+   - The SB Mixing routine is a bit slow (sorry!)
+   - I have implemented  volume amplify & interpolation to get the best
+     possible  sound  quality, still a SoundBlaster  will not sound too
+     good with  MOD's that have more than 8 channels, since these cards
+     are only 8 bit (GUS is 16 bit).
+     There is no support for any 16bit soundblaster yet.
+   - Detection routines are quite simple  (maybe too simple). (This has
+     one advantage: you'll be able to use sb-non  compatible cards even
+     when sb-emulation software for  that card is not that efficient. )
+   - The vibrato, tremolo and backwards replay effects aren't implemen-
+     ted (at least not correctly, that is).
+
+
+
+
+ ў About the options:
+
+   Type MPxx w/o options to get  a  bit info about the possible parame-
+   ters. Here comes some more specific information:
+
+     - the "-B" option.  Some VERY  old MOD's are made by trackers that
+       don't  support  the  "SET-BPM"  command.  Since  this command is
+       shared with the "SET-TEMPO" command (both commands have the same
+       "effect" number), modern trackers / players may sometimes inter-
+       prete a "SET TEMPO" command as a "SET BPM" command. This  option
+       makes the program interprete both "SET TEMPO" and "SET BPM" com-
+       mands as "SET TEMPO" commands. Got it? ;-).
+
+
+
+
+ ў Future (very future ;-)) devellopments I planned:
+
+   - DMA Mixing using the DMA auto-init feature of the SB 2.0+
+   - (DMA uses now single-cycle mode)
+   - stereo & 16bit on SB16
+   - Direct-to-disk option (ex: save the whole song in a .WAV file).
+   - GUS Software Mixing
+   - EMS support (hmm... don't bother)
+
+
+
+
+ ў Things I (The author, ByteRaver) am interested in:
+
+   - Modules that hang the program, sound (very) wrong, etc.
+   - Computer systems/configurations that hang the program
+   - Advice concerning my  code (especially  the  SB Mixing routine): I
+     'd be very interested in algoritm outlines, etc. *NO SOURCE CODE*!
+
+
+
+
+ ў Contacting me:
+
+   - If you  are a beginning  programmer and you  think I can help  you
+     with something,  you can always  try to contact me... You can also
+     get the source of my programs (in a general  way, not everything),
+     but you'll  have to ASK. I do  NOT spread just like that,  because
+     too few people are interested in it.  This  program being the only
+     exception.
+   - Write me at the following address:
+
+     email: erlandvo@hotmail.com
+
+     snail mail: Erland van Olmen
+                  Mas EscaraBill
+                   66400 Reynes
+                      France
+                      Europe
+                      Earth  ;-)
+
+   - I speak and read fluently French and Dutch,  so if you know one of
+     these languages and prefer them to English (I do!), you can  write
+     me using one of the previously mentioned languages.
+
+
+
+
+ ў Don't write me if:
+
+   - You just want to say my proggie sux (I already know ;-) ).
+   - You  want  to say  I am a f**king lamer.  This  is  untrue; I only
+     couldn't write my own I/O  routines  because of the lack  of info,
+     not the lack of brains ;-)
+     (I did at least give credit to the authors, so I feel clean :-))
+
+
+
+
+ ў Miscellaneous info:
+
+   - The program  repacks the  patterns, so the  crunched patterns take
+     only about 36% of their original size.  That's  why some large mo-
+     dules  will still be  loaded  by the program, despite the fact the
+     module is larger than the  amount of  free  memory. I succeeded in
+     loading a module of  over  800Kb  with SB; the compression of  the
+     patterns saved 267Kb of memory! The  samples are not crunched, not
+     even if low on GUS DRAM memory (as you might have noticed!).
+
+   - TNT (Me (ByteRaver) & Wodan) is  also  working on another project:
+     an XM (eXtended Module, the format  FastTracker II from Triton sa-
+     ves in)  module player.  It is  written in  Watcom C and  runs  in
+     protected mode using the DOS/4GW extender  (or PMODE/W from  TRAN/
+     Renaissance, we're not  quite  sure yet). For instance only GUS is
+     supported (As  soon as I get  this damn' mixer *FAST* I'll include
+     SB support). The player is almost  finished, but since some of the
+     formulas described in the XM - FORMAT description file seem wrong,
+     the  AMIGA frequency table is not implemented.  As  soon  as I get
+     my hands  on the right  formulas I'll  be able to  finish it  in a
+     proper will, and then therefrom the release date shouldn't be that
+     far  anymore! Another  important  notice:  we might  release (some
+     off) the source code! Yes!
+
+   - Some of the (planned) features:
+       - Advanced IMM  System  (Intelligent Memory Multiplying System):
+         this  system compresses  samples  if  low on  GUS  memory in a
+         special way, in order to keep  maximum playback quality.
+       - Panning optimizer. GUS can  only handle 16-steps  panning  per
+         channel. Using TWO channels the  panning  positions can be in-
+         creased to  virtually 4096. If  there  are  any  free channels
+         below 14 (if you use more  than 14  channels,  quality decrea-
+         ses) they will be used to optimize panning effects.
+       - Channel optimizer. If a  module  effectively uses 16 channels,
+         but the nr  of channels  defined  by the  XM-file  is greater,
+         the nr of channels will be  put back to 16 (for example).
+
+   - About my  humble (?) self:  I was born in march 1977;  I sincerely
+     hate school (stupid  teachers,  lessons & pupils), but still go to
+     that  stupid institute  every  fucking morning. I love  nearly all
+     kinds of music;  RAP is the  only "genre"  I really  can't  stand.
+     BTW, I *love* writing long letters, so if you want to write me, do
+     not hesitate  (don't forget  to  include  your (email) address), I
+     WILL reply your letter!
+     Note:  due  to  unfortunate  circumstances,  I  quitted highschool
+     without graduating... Yeah, another  one's studies wasted by  that
+     stupid computer ;-).
+
+
+
+
+ ў And last but no least, the credits to this player:
+
+    - SB  I/O Routines: Mark FeldMan (PCGPE)
+    - GUS I/O Routines: GUS SDK (Thunder aka Kurt Kennett /
+                                                    Ingenuity Software)
+    - Thunder: for his neat description file of the MOD-file format
+    - Vibrato Table was taken from the player by CapaCala. Thanks!
+    - Me: ALL THE REST! (YEHHHS! ;-))
+
+  Have fun with the program, and give me some feedback!
+
+          - BYTERAVER.
+
+           (erlandvo@hotmail.com)
+

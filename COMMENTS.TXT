@@ -1,0 +1,137 @@
+GLOBAL INFO:
+------------
+
+  - Each SoundDevice has it's own:
+     - detection procedure
+     - replay procedure
+     - init procedure
+    The detection procedure first takes a look at the environment variables,
+    and THEN performs a Hardware test.
+
+  - Work started somewhere around October 1995 with a GUS version. A few
+    Months later, an SB version followed (not the actual one, which uses a
+    totally different mixing routine (about 2000% faster 8-] ).
+
+
+FEATURES:
+---------
+
+  - Loads & play's _ALL_ existant MOD / WOW formats (15-31 instruments,
+    1-32 Channels). (It doesn't load MTM modules though)
+    Following tags are recognised:
+
+    "M.K." : 4 channel Protracker, 8 channel MOD's Grave Composer (.WOW files)
+    "M!K!" : Standard AMIGA ProTracker MOD, over 64 patterns
+    "FLTx" : AMIGA StarTrekker 4,8 channel MOD
+    "TDZx" : TakeTracker 1,2,3 channel MOD
+    "xCHN" : FastTracker 2,6,8 channel, TakeTracker 5,7,9 channel MOD
+    "yyCH" : FastTracker 10,12..32 channel, TakeTracker 11,13,15 channel MOD
+    "OCTA" : OctaComposer, 8 channel MOD
+    "CD81" : ATARI/FALCON, 8 channel tracker MOD
+ (x or yy = nr of channels)
+
+    !! Note that if the loader can't find any TAG it recognizes, it will
+    !! calculate the nr of channels using an alternative method.
+
+- The patterns are repacked (not compressed) to save heap memory.
+    (this is especially useful w/ a GUS: ALL Mods will load with about 500Kb
+    base Memory. On a SB, it just runs out of memory a bit slower ;-))
+
+  - Unused patterns or samples will not be loaded in order to save HEAP & GUS
+    DRAM memory.
+
+  - "Intelligent" loader. Detects MOD w/ crushed ID's. (They will not syste-
+    matically be loaded as 15-instrument MOD's (these MOD's doesn't have
+    an ID), unlike most other players).
+
+  - Nice & Powerful setup program.
+
+  - Source code is about 437Kb big, GUS driver library included
+
+
+BUGS/INCOHERENCES:
+------------------
+
+*) LOADER:
+
+  - Some corrupt modules may not load correctly. Loader is as polyvalent as
+    possible... Really corrupt MOD's may hang the player. If this occurs,
+    pressing <ctrl>+<brk> will help in most cases (It never happened to me).
+  - Pattern analysing could be completer.
+  - Samples > 0FFF7h bytes are cut (on a SoundBlaster, not w/ GUS)
+    ( You should not miss too much anyway... )
+
+*) PLAYER:
+
+  - GENERAL:
+      - SOME EFFECTS aren't (correctly) implemented. (See Below)
+
+- SB PLAYER:
+      - Mixing routine needs to be sped up: it is rather slow...
+
+
+"PROBLEMATIC" MODS:
+-------------------
+
+MODFILE  :   Problem & REASON(Simple guess):
+----------   -------------------------------
+
+- if you have a .MOD that sounds wrong, mail it to me...
+
+
+RE-PACKED PATTERN-SCHEME:
+-------------------------
+
+  There are still 4 bytes/chn:
+
+     - First  byte: note (1..60, 0 = no new note)
+     - Second byte: Effect ($10/$1/$2/../$9/$A/$B/$C/$D/$E0/$E1/../$EF/$F)
+     - Third  byte: Effect Argument ($0..$FF)
+     - Fourth byte: Sample Nr.
+
+  The patterns are repacked: the 2 most significant bits of the first byte
+(Note) are never used, so they can be used for compression.
+
+     - Bit 7 (MSB) set: effect & effect argument follow
+     - Bit 6       set: Sample Nr follows
+
+--==>>> This scheme has been modified since version 1.1 for octaves 1-8
+
+
+Here are the possible effects:
+-----------------------------------------------------
+ #  Effect name                          Implementa-
+                                         tion status:
+-----------------------------------------------------
+ 0  Arpeggio                             OK!
+ 1  Slide Up                             OK!
+ 2  Slide Down                           OK!
+ 3  Tone Portamento                      OK!
+ 4  Vibrato                              OK!
+ 5  Tone Portamento + Volume Slide       OK!
+ 6  Vibrato + Volume Slide               OK!
+ 7  Tremolo
+ 8  Set Fine Panning                     OK!
+ 9  Set SampleOffset                     OK!
+ A  VolumeSlide                          OK!
+ B  Position Jump                        OK!
+ C  Set Volume                           OK!
+ D  Pattern Break                        OK!
+E0  Set Filter                           [NOT NEEDED]
+E1  FineSlide Up                         OK!
+E2  FineSlide Down                       OK!
+E3  Glissando Control                    
+E4  Set Vibrato Waveform		 OK!
+E5  Set FineTune                         OK!
+E6  Set/Jump to Loop (pattern loop)      OK!
+E7  Set Tremolo Waveform
+E8  MTM Panning                          OK!
+E9  Retrig Note                          OK!
+EA  Fine VolumeSlide Up                  OK!
+EB  Fine VolumeSlide Down                OK!
+EC  NoteCut                              OK!
+ED  NoteDelay                            OK!
+EE  PatternDelay                         OK!
+EF  Invert Loop                          [NOT IMPLEMENTED]
+ F  Set Speed/BPM                        OK! (No speed zero, useless)
+

@@ -1,0 +1,73 @@
+  Hello!
+
+>>The second table is for translating notes to period, including
+>finetune.
+>>Index with [note*8+finetune], finetune = -8..+7.
+>>Only one octave is stored, so you need to shift the result based on the
+>octave.
+>
+>Can you explain this further w/ a formula? (How do I get the Final
+>Period?).
+
+Actually, you can get my functions for converting between notes, periods and
+frequencys:
+
+int CXMPlayer::Note2Period(int Note, int Finetune) {
+    if (m_Song->m_LinearFrequency) {
+        return 10*12*16*4-Note*16*4-Finetune/2;
+    } else {
+        int i = 8*(Note%12)+((Finetune+128) >> 4);
+        int j = Finetune & 15;
+        int k = Note/12;
+        return (32*AMIGA_PERIOD_TABLE[8+i]+
+                2*(AMIGA_PERIOD_TABLE[9+i]-AMIGA_PERIOD_TABLE[8+i])*j) >> k);
+    }
+}
+
+double CXMPlayer::Period2Frequency(int Period) {
+    if (m_Song->m_LinearFrequency)
+        return 8363.0*exp(log(2)*double(6*12*16*4-Period)/double(12*16*4));
+    else
+        if (Period != 0) return double(8363*1712)/double(Period);
+        else             return 0.0;
+}
+
+Note that these functions use finetune values from -128..+127. Notes are
+expressed as note_in_octave+12*octave. You will also see that the first eight
+
+values in the AMIGA_PERIOD_TABLE[] are not used here.
+
+The finer finetune values are used to interpolate linearly between table
+entries. The period is multiplied by 32 before adjusting the octave.
+
+>
+>>You also might want to use a different scale to increase precision.
+>
+>
+>>static int16 AMIGA_PERIOD_TABLE[14*8+1] = {
+>>    960,954,948,940,934,926,920,914,
+>>    907,900,894,887,881,875,868,862,856,850,844,838,832,826,820,814,
+>>    808,802,796,791,785,779,774,768,762,757,752,746,741,736,730,725,
+>>    720,715,709,704,699,694,689,684,678,675,670,665,660,655,651,646,
+>>    640,636,632,628,623,619,614,610,604,601,597,592,588,584,580,575,
+>>    570,567,563,559,555,551,547,543,538,535,532,528,524,520,516,513,
+>>    508,505,502,498,494,491,487,484,480,477,474,470,467,463,460,457,
+>>    453,450,447,443,440,437,434,431,428 };
+>
+>Sorry if I ask you again, but can I get the replay frequency out of this
+>period using the standard Period_to_frequency formula of the MOD format?
+>(e.g.             Frequency = AMIGA_CST / (Period * 2)
+>, where AMIGA_CST can be 7093789.2 (NTSC) or 7159090.5 (PAL))
+>
+>
+>If you could explain that a little bit... I'd be very grateful :).
+>
+>BTW, you signed your letter with: "/ Fredrik Huss, (Mr. H)", so
+>Fredrik Huss    = Mr.H
+>Magnus Höghdahl = Vogue ?
+>Damn', I've been wrong all the time! :)
+
+That's correct. No big deal!
+
+/ Fredrik Huss
+
